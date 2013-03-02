@@ -120,6 +120,7 @@ threadpool_t *threadpool_create(int thread_count, int queue_size, int flags)
     for(i = 0; i < thread_count; i++) {
         if(pthread_create(&(pool->threads[i]), NULL,
                           threadpool_thread, (void*)pool) != 0) {
+            pool->thread_count = i; // would crash without this
             threadpool_destroy(pool, 0);
             return NULL;
         } else {
