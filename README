@@ -1,6 +1,8 @@
 A simple C thread pool implementation
 =====================================
 
+This is forked and changed to implement unlimited queue. Can still be optimized.
+
 Currently, the implementation:
  * Works with pthreads only, but API is intentionally opaque to allow
    other implementations (Windows for instance).
@@ -16,7 +18,6 @@ some additional options:
 
  * Lazy creation of threads (easy)
  * Reduce number of threads automatically (hard)
- * Unlimited queue size (medium)
  * Allow queued task to be processed on destroy (medium)
  * Kill worker threads on destroy (hard, dangerous)
  * Support Windows API (medium)
