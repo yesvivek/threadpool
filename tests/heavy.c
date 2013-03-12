@@ -46,6 +46,7 @@ int main(int argc, char **argv)
         pool[i] = threadpool_create(THREAD, &dummy_task, 0);
         assert(pool[i] != NULL);
     }
+    printf("Done creating %d queues\n", i);
 
     usleep(10);
 
@@ -53,6 +54,8 @@ int main(int argc, char **argv)
         tasks[i] = 0;
         assert(threadpool_add(pool[0], &(tasks[i]), 0) == 0);
     }
+
+    printf("Done adding %d tasks\n", i);
 
     while(left > 0) {
         usleep(10);
@@ -63,6 +66,8 @@ int main(int argc, char **argv)
     }
 
     pthread_mutex_destroy(&lock);
+
+    printf("Done all tasks\n" );
 
     return 0;
 }
