@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
     pthread_mutex_init(&lock, NULL);
 
-    pool = threadpool_create(THREAD,  &dummy_task&dummy_task, 0);
+    pool = threadpool_create(THREAD, &dummy_task, 0);
     fprintf(stderr, "Pool started with %d threads and "
             "queue size of %d\n", THREAD, QUEUE);
 
