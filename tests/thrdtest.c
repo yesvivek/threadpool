@@ -1,5 +1,5 @@
-#define THREAD 32
-#define QUEUE  256
+#define THREAD 100
+#define MAX_TASKS  1000
 
 #include <stdio.h>
 #include <pthread.h>
@@ -11,7 +11,7 @@ int tasks = 0, done = 0;
 pthread_mutex_t lock;
 
 void dummy_task(void *arg) {
-    usleep(1000);
+    usleep(10);
     pthread_mutex_lock(&lock);
     done++;
     pthread_mutex_unlock(&lock);
@@ -20,14 +20,16 @@ void dummy_task(void *arg) {
 int main(int argc, char **argv)
 {
     threadpool_t *pool;
+    int i = 0;
 
     pthread_mutex_init(&lock, NULL);
 
     pool = threadpool_create(THREAD, &dummy_task, 0);
-    fprintf(stderr, "Pool started with %d threads and "
-            "queue size of %d\n", THREAD, QUEUE);
+    fprintf(stderr, "Pool started with %d threads\n", THREAD );
 
-    while(threadpool_add(pool, NULL, 0) == 0) {
+    while( i++ < MAX_TASKS )
+    {
+        threadpool_add(pool, NULL, 0);
         pthread_mutex_lock(&lock);
         tasks++;
         pthread_mutex_unlock(&lock);
